@@ -53,7 +53,7 @@ class TextAudioLoader(torch.utils.data.Dataset):
             if self.min_text_len <= len(text) and len(text) <= self.max_text_len:
                 audiopaths_and_text_new.append([audiopath, text])
                 #print('start:',audiopath)
-                lengths.append(os.path.getsize('filelists/iu/wavs/'+audiopath) // (2 * self.hop_length))
+                lengths.append(os.path.getsize('/content/drive/MyDrive/AI/datasets/iu/wavs/'+audiopath) // (2 * self.hop_length))
         self.audiopaths_and_text = audiopaths_and_text_new
         self.lengths = lengths
 
@@ -61,7 +61,7 @@ class TextAudioLoader(torch.utils.data.Dataset):
         # separate filename and text
         audiopath, text = audiopath_and_text[0], audiopath_and_text[1]
         text = self.get_text(text)
-        spec, wav = self.get_audio('filelists/iu/wavs/'+audiopath)
+        spec, wav = self.get_audio('/content/drive/MyDrive/AI/datasets/iu/wavs/'+audiopath)
         return (text, spec, wav)
 
     def get_audio(self, filename):
