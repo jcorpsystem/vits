@@ -35,6 +35,7 @@ class TextAudioLoader(torch.utils.data.Dataset):
 
         random.seed(1234)
         random.shuffle(self.audiopaths_and_text)
+        
         self._filter()
 
 
@@ -51,7 +52,8 @@ class TextAudioLoader(torch.utils.data.Dataset):
         for audiopath, text in self.audiopaths_and_text:
             if self.min_text_len <= len(text) and len(text) <= self.max_text_len:
                 audiopaths_and_text_new.append([audiopath, text])
-                lengths.append(os.path.getsize(audiopath) // (2 * self.hop_length))
+                #print('start:',audiopath)
+                lengths.append(os.path.getsize('filelists/iu/wavs/'+audiopath) // (2 * self.hop_length))
         self.audiopaths_and_text = audiopaths_and_text_new
         self.lengths = lengths
 
@@ -59,11 +61,14 @@ class TextAudioLoader(torch.utils.data.Dataset):
         # separate filename and text
         audiopath, text = audiopath_and_text[0], audiopath_and_text[1]
         text = self.get_text(text)
-        spec, wav = self.get_audio(audiopath)
+        spec, wav = self.get_audio('filelists/iu/wavs/'+audiopath)
         return (text, spec, wav)
 
     def get_audio(self, filename):
         audio, sampling_rate = load_wav_to_torch(filename)
+        #print('sr:',sampling_rate)
+        #print('sr_to:',self.sampling_rate)
+        
         if sampling_rate != self.sampling_rate:
             raise ValueError("{} {} SR doesn't match target {} SR".format(
                 sampling_rate, self.sampling_rate))
