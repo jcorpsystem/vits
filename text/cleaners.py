@@ -5,8 +5,8 @@ from text.korean import latin_to_hangul, number_to_hangul, divide_hangul, korean
 #from text.sanskrit import devanagari_to_ipa
 #from text.english import english_to_lazy_ipa, english_to_ipa2, english_to_lazy_ipa2
 #from text.thai import num_to_thai, latin_to_thai
-f#rom text.shanghainese import shanghainese_to_ipa
-f#rom text.cantonese import cantonese_to_ipa
+#from text.shanghainese import shanghainese_to_ipa
+#from text.cantonese import cantonese_to_ipa
 from text.ngu_dialect import ngu_dialect_to_ipa
 
 
